@@ -8,7 +8,7 @@
 #
 
 library(shiny)
-library(markdown)
+
 # Define UI for application that draws a histogram
 navbarPage("Mortalidad",
            tabPanel("Datos",
@@ -22,11 +22,21 @@ navbarPage("Mortalidad",
                         uiOutput("ui")
                       ),
                       column(4,
-                          textOutput("cargadas"))
+                          textOutput("summary"))
                     )
            ),
            tabPanel("Summary",
-                    textOutput("summary")
+                  sidebarLayout(
+                       sidebarPanel(
+                           uiOutput("ui2"),
+                           uiOutput("uislider1"),
+                           uiOutput("uislider2"),
+                           checkboxInput("transf", "Transformación logarítmica", TRUE)
+                       ),
+                       mainPanel(
+                        plotOutput("plot1")
+                       )
+                  )
            ),
            navbarMenu("More",
                       tabPanel("Table",
